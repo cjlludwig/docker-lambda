@@ -1,0 +1,14 @@
+{
+  "name": "docker-lambda",
+  "version": "1.0.0",
+  "description": "Project to demonstrate containerizing Lambdas using Docker along with related AWS infrastructure as code.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "stop": "docker rm $(docker stop $(docker ps -a -q --filter ancestor=docker-lambda:latest --format=\"{{.ID}}\"))",
+    "docker-build": "docker build -t docker-lambda .",
+    "docker-local": "docker run -d -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 --entrypoint /aws-lambda/aws-lambda-rie docker-lambda:latest /usr/local/bin/npx aws-lambda-ric main.handler"
+  },
+  "author": "Connor J Ludwig",
+  "license": "ISC"
+}
